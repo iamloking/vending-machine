@@ -7,10 +7,11 @@ import com.loki.codes.enums.Coin;
 public class VendingMachineClient {
     public static void main(String[] args) {
         VendingMachine vendingMachine= VendingMachine.getInstance();
-        vendingMachine.addItem("lays","Lays Chip",25,15);
+        vendingMachine.addItem("lays","Lays Chip",20,15);
         vendingMachine.selectItem("lays");
         vendingMachine.insertCoin(Coin.QUARTER);
-        vendingMachine.insertCoin(Coin.NICKEL);
         vendingMachine.dispense();
+//        System.out.println("Vending machine Balance: "+vendingMachine.getBalance());
+//        System.out.println("Vending machine Selected Item: "+vendingMachine.getSelectedItem());
     }
 }
