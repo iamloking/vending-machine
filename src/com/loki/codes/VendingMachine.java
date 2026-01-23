@@ -67,8 +67,8 @@ public class VendingMachine {
 
     public void reset(){
         this.selectedProductCode = null;
-        this.refundBalance();
-        this.setState(new IdleState(this));
+        if(getBalance()>0)
+            this.refundBalance();
     }
 
     public Product addItem(String code, String name, int price, int quantity){
@@ -78,18 +78,13 @@ public class VendingMachine {
     }
 
     public void dispenseItem(){
-        if(getInventory().isAvailable(selectedProductCode)){
-            Product product = getInventory().getProduct(selectedProductCode);
-            if(product.getPrice()<=getBalance()){
-                getInventory().reduceStock(selectedProductCode);
-                balance -=  getInventory().getProduct(selectedProductCode).getPrice();
-                System.out.println("Dispensed: " + product.getName());
-                if (balance > 0) {
-                    System.out.println("Returning change: " + balance);
-                }
-            }
+        getInventory().reduceStock(selectedProductCode);
+        balance -=  getInventory().getProduct(selectedProductCode).getPrice();
+        if (balance > 0) {
+            System.out.println("Returning change: " + balance);
+            balance=0;
         }
-        reset();
+        this.state.dispense();
     }
 
 }

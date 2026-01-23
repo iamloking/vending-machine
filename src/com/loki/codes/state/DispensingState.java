@@ -26,6 +26,7 @@ public class DispensingState extends VendingMachineState {
         // already triggered by HasMoneyState
         System.out.println("Dispensing State.");
         System.out.println("Item dispensed, thanks for shopping with us.");
+        vendingMachine.setState(new IdleState(vendingMachine));
         vendingMachine.reset();
     }
 
